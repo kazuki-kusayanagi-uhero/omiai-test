@@ -4,8 +4,7 @@ import Link from 'next/link'; // Linkコンポーネントをインポート
 export default function Home() {
   return (
     <div>
-      <h1>ようこそ、私のシンプルなウェブサイトへ！</h1>
-      <p>これはNext.jsで作られた最初のページです。</p>
+      <h1>Hello World</h1>
       <nav>
         <ul>
           <li>
