@@ -4,10 +4,18 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 
+// APIから返されるデータの型を定義します
+interface ApiDataType {
+  message: string;
+  data: string;
+}
+
 export default function Home() {
-  const [apiData, setApiData] = useState(null);
-  const [error, setError] = useState(null);
-  const API_ENDPOINT = 'https://l2kln2gnk9.execute-api.ap-northeast-1.amazonaws.com/omiai-test/omiai-test'; // あなたのAPIエンドポイントを貼り付け！
+  // apiData の型を ApiDataType または null と明示します
+  const [apiData, setApiData] = useState<ApiDataType | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const API_ENDPOINT = 'https://l2kln2gnk9.execute-api.ap-northeast-1.amazonaws.com/omiai-test/omiai-test';
 
   useEffect(() => {
     async function fetchData() {
@@ -16,26 +24,28 @@ export default function Home() {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json(); // ここで一度目のパース（API Gatewayのレスポンスオブジェクト全体）
+        const data = await response.json();
 
-        // ★★★ ここからが変更点です！ ★★★
-        // API Gateway のレスポンスの 'body' プロパティが、さらにJSON文字列なので、もう一度パースします
         if (data && typeof data.body === 'string') {
           try {
-            setApiData(JSON.parse(data.body)); // bodyの中身をJSONとしてパース
+            // JSON.parseの結果をApiDataTypeとして扱うことをTypeScriptに伝えます
+            setApiData(JSON.parse(data.body) as ApiDataType);
           } catch (parseError) {
             console.error("APIレスポンスのbodyパースエラー:", parseError);
             setError("APIからのデータ形式が不正です。");
           }
         } else {
-          // body プロパティがない、または文字列でない場合（予期しない形式）
-          setApiData(data); // そのままセット（もしAPIが直接JSONオブジェクトを返した場合用）
+          // もしbodyが文字列でない場合（予期しない形式）のフォールバック
+          // このケースでは、apiDataの型が合わない可能性があるので注意
+          setApiData(data as ApiDataType | null); // ここも型キャストを追加
         }
-        // ★★★ 変更点ここまで ★★★
-
-      } catch (e) {
+      } catch (e: unknown) {
         console.error("API呼び出しエラー:", e);
-        setError(e.message);
+        if (e instanceof Error) {
+          setError(e.message);
+        } else {
+          setError("予期せぬAPIエラーが発生しました。");
+        }
       }
     }
 
@@ -50,6 +60,7 @@ export default function Home() {
       <h2>API からのデータ:</h2>
       {apiData ? (
         <div>
+          {/* apiData が null でなければ、message と data プロパティは存在するとTypeScriptが理解します */}
           <p>メッセージ: {apiData.message}</p>
           <p>データ: {apiData.data}</p>
         </div>
