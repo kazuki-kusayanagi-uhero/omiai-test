@@ -1,0 +1,33 @@
+/* src/app/globals.css */
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1 {
+  color: #0070f3;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0070f3;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
