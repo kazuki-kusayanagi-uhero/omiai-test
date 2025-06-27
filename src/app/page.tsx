@@ -74,9 +74,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>ようこそ、私のシンプルなウェブサイトへ！</h1>
-      <p>これはNext.jsで作られた最初のページです。</p>
-
+      <h1 className={styles.title}>Hello World</h1>
       <h2>API からのデータ:</h2>
       {apiData ? (
         <div>
