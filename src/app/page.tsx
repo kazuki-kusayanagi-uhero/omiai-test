@@ -33,7 +33,7 @@ export default function Home() {
   const [apiData, setApiData] = useState<ApiResponse | null>(null); // 型を ApiResponse に変更
   const [error, setError] = useState<string | null>(null);
 
-  const API_ENDPOINT = 'https://l2kln2gnk9.execute-api.ap-northeast-1.amazonaws.com/omiai-test/omiai-test';
+  const API_ENDPOINT = 'https://42f9wx076l.execute-api.ap-northeast-1.amazonaws.com/API_test/apitest';
 
   useEffect(() => {
     async function fetchData() {
