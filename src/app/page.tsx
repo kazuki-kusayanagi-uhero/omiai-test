@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 
-// --- ここから追記・変更 ---
-
 // APIから返されるRDSの各行のデータの型を定義します
 // 例として、RDSのテーブルに 'id' (数値) と 'name' (文字列) のカラムがある場合
 interface TableRow {
@@ -33,7 +31,7 @@ export default function Home() {
   const [apiData, setApiData] = useState<ApiResponse | null>(null); // 型を ApiResponse に変更
   const [error, setError] = useState<string | null>(null);
 
-  const API_ENDPOINT = 'https://42f9wx076l.execute-api.ap-northeast-1.amazonaws.com/API_test/apitest';
+  const API_ENDPOINT = 'https://bi8oefs4o3.execute-api.ap-northeast-1.amazonaws.com/Omiai_test/get_tabledata/verifications_test';
 
   useEffect(() => {
     async function fetchData() {
