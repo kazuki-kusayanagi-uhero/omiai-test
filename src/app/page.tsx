@@ -31,7 +31,7 @@ export default function Home() {
   const [apiData, setApiData] = useState<ApiResponse | null>(null); // 型を ApiResponse に変更
   const [error, setError] = useState<string | null>(null);
 
-  const API_ENDPOINT = 'https://bi8oefs4o3.execute-api.ap-northeast-1.amazonaws.com/Omiai_test/get_tabledata/verifications_test';
+  const API_ENDPOINT = 'https://bi8oefs4o3.execute-api.ap-northeast-1.amazonaws.com/omiai-test/get_tabledata/verifications_test';
 
   useEffect(() => {
     async function fetchData() {
